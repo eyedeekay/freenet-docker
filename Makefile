@@ -1,5 +1,4 @@
 
-DISPLAY = ":0"
 RELEASE = 1480
 
 build:
@@ -10,15 +9,7 @@ clean:
 
 run: build clean
 	docker run -t -i -d --name freenet \
-		--net host \
-		-p 127.0.0.1:9481:9481 \
-		-p 127.0.0.1:8888:8888 \
-		--restart always \
-		--volume freenet-vol:/var/lib/freenet/ \
-		eyedeekay/freenet
-
-run-test: build clean
-	docker run -t -i -d --name freenet \
+		--user freenet \
 		-p 127.0.0.1:9481:9481 \
 		-p 127.0.0.1:8888:8888 \
 		--restart always \
@@ -42,3 +33,9 @@ run-deb: build-deb clean-deb
 
 copy-deb:
 	docker cp freenet-deb:/var/lib/*.deb .
+
+surf:
+	surf -d -a a -c cookies.txt -g -i -p -m 127.0.0.1:8888
+
+control:
+	surf -d -a a -c cookies.txt -g -i -p -m 127.0.0.1:9481

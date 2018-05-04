@@ -1,8 +1,8 @@
 # This file is overwritten whenever Freenet shuts down, so only edit it when the node is not running.
 console.ssl=false
 console.enabled=false
-security-levels.networkThreatLevel=LOW
-security-levels.physicalThreatLevel=NORMAL
+security-levels.networkThreatLevel=NORMAL
+security-levels.physicalThreatLevel=MAXIMUM
 fproxy.allowedHosts=0.0.0.0,127.0.0.1,0:0:0:0:0:0:0:1
 fproxy.showPanicButton=false
 fproxy.publicGatewayMode=true
@@ -52,11 +52,11 @@ node.name=Freenet node with no name #-864637714100205901
 node.inputBandwidthLimit=-1
 node.listenPort=5174
 node.storePreallocate=true
-fcp.allowedHosts=127.0.0.1,0:0:0:0:0:0:0:1
+fcp.allowedHosts=0.0.0.0,127.0.0.1,0:0:0:0:0:0:0:1
 fcp.port=9481
 fcp.ssl=false
-fcp.bindTo=127.0.0.1,0:0:0:0:0:0:0:1
-fcp.allowedHostsFullAccess=127.0.0.1,0:0:0:0:0:0:0:1
+fcp.bindTo=0.0.0.0,127.0.0.1,0:0:0:0:0:0:0:1
+fcp.allowedHostsFullAccess=0.0.0.0,127.0.0.1,0:0:0:0:0:0:0:1
 node.updater.updateSeednodes=true
 node.updater.updateInstallers=true
 node.updater.URI=USK@O~UmMwTeDcyDIW-NsobFBoEicdQcogw7yrLO2H-sJ5Y,JVU4L7m9mNppkd21UNOCzRHKuiTucd6Ldw8vylBOe5o,AQACAAE/jar/1480

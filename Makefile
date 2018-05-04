@@ -5,19 +5,21 @@ RELEASE = 1480
 build:
 	docker build --build-arg "TAG=$(RELEASE)" -f Dockerfile --force-rm -t eyedeekay/freenet .
 
-deb: build-deb run-deb copy-deb clean-deb
-
 clean:
 	docker rm -f freenet; true
 
-run: clean
+run: build clean
 	docker run -t -i -d --name freenet \
-		-e DISPLAY=$(DISPLAY) \
-		-p :9481 \
+		-p 127.0.0.1:9481:9481 \
 		-p 127.0.0.1:8888:8888 \
 		--restart always \
-		--volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+		--volume freenet-vol:/var/lib/freenet/ \
 		eyedeekay/freenet
+
+follow:
+	docker logs -f freenet
+
+deb: build-deb run-deb copy-deb clean-deb
 
 build-deb:
 	docker build --build-arg "TAG=$(RELEASE)" -f Dockerfile.debian-package --force-rm -t eyedeekay/freenet-deb .
@@ -25,7 +27,7 @@ build-deb:
 clean-deb:
 	docker rm -f freenet-deb; true
 
-run-deb: clean-deb
+run-deb: build-deb clean-deb
 	docker run -t -d --name freenet-deb \
 		eyedeekay/freenet-deb
 

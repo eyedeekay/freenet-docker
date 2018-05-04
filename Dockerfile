@@ -11,5 +11,7 @@ COPY setup.sh /bin/setup.sh
 USER freenet
 WORKDIR /var/lib/freenet
 RUN setup.sh
-RUN ls /var/lib/freenet/
+RUN /var/lib/freenet/run.sh start
+COPY freenet.ini /var/lib/freenet.ini
+EXPOSE 9481 8888
 CMD /var/lib/freenet/run.sh console | tee -a freenet.log

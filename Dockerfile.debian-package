@@ -1,0 +1,18 @@
+FROM debian:buster
+ARG TAG
+ENV USER=freenet HOME=/var/lib/freenet DEBIAN_FRONTENT=noninteractive
+RUN apt-get update
+RUN apt-get install -y git equivs devscripts
+RUN addgroup --system -gid 1000 freenet
+RUN adduser --system --uid 1000 --gid 1000 --home /var/lib/freenet --gecos ',,,,' freenet
+USER freenet
+RUN git clone https://github.com/freenet/debian /var/lib/freenet/src
+WORKDIR /var/lib/freenet/src
+USER root
+RUN yes | mk-build-deps -i
+USER freenet
+RUN git submodule update --init
+RUN debian/rules vcs-mk-origtargz # if it doesn't already exist
+RUN debuild -uc -us
+RUN ls ..
+CMD which freenet

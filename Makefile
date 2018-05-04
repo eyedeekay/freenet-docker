@@ -10,6 +10,15 @@ clean:
 
 run: build clean
 	docker run -t -i -d --name freenet \
+		--net host \
+		-p 127.0.0.1:9481:9481 \
+		-p 127.0.0.1:8888:8888 \
+		--restart always \
+		--volume freenet-vol:/var/lib/freenet/ \
+		eyedeekay/freenet
+
+run-test: build clean
+	docker run -t -i -d --name freenet \
 		-p 127.0.0.1:9481:9481 \
 		-p 127.0.0.1:8888:8888 \
 		--restart always \
